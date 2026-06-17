@@ -297,46 +297,152 @@
   }
   .reveal.in{ opacity:1; transform:translateY(0); }
 
-  /* ---- Services ---- */
-  .services-grid{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  /* ---- Services / Pricing ---- */
+  .pricing-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:2px;
     background:var(--line); border:1px solid var(--line);
+    border-radius:4px; overflow:hidden;
   }
-  .service-card{
-    background:var(--bg); padding:36px 28px; min-height:260px;
-    display:flex; flex-direction:column; justify-content:space-between;
-    transition:background 0.35s ease;
+  .pricing-card{
+    background:#0e0f11; padding:52px 44px;
+    display:flex; flex-direction:column;
+    position:relative; transition:background 0.4s ease;
   }
-  .service-card:hover{ background:var(--card,#15161a); }
-  .service-num{ font-family:'Space Mono',monospace; color:var(--orange); font-size:13px; }
-  .service-card h3{
-    font-family:'Bricolage Grotesque',sans-serif; text-transform:uppercase;
-    font-weight:800; letter-spacing:-0.01em;
-    font-size:26px; margin:24px 0 12px; line-height:1.1;
+  .pricing-card:hover{ background:#111318; }
+  .pricing-card.featured{ background:#0c1220; }
+  .pricing-card.featured:hover{ background:#0e1528; }
+
+  .value-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--orange); color:#fff;
+    font-family:'Space Mono',monospace; font-size:10px;
+    letter-spacing:0.15em; text-transform:uppercase;
+    padding:6px 14px; border-radius:999px;
+    width:fit-content; margin-bottom:32px;
+    animation:badgePulse 3s ease-in-out infinite;
   }
-  .service-card p{ color:var(--muted); font-size:14px; line-height:1.6; }
-  .service-edit{
-    margin-top:80px; padding:20px 24px; border:1px dashed var(--line);
-    border-radius:8px; font-size:13px; color:var(--muted); line-height:1.6;
+  @keyframes badgePulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(37,99,235,0.45); }
+    50%{ box-shadow:0 0 0 9px rgba(37,99,235,0); }
   }
-  .service-edit b{ color:var(--cream); }
+  .pricing-spacer{ height:36px; margin-bottom:32px; }
+
+  .pricing-label{
+    font-family:'Space Mono',monospace; font-size:11px;
+    letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:12px; display:block;
+  }
+  .pricing-name{
+    font-size:clamp(36px,4vw,52px); line-height:1; margin-bottom:12px;
+  }
+  .pricing-tagline{
+    color:var(--muted); font-size:14px; line-height:1.7;
+    margin-bottom:36px; max-width:340px;
+  }
+  .pricing-price{
+    display:flex; align-items:baseline; gap:8px; margin-bottom:36px;
+  }
+  .pricing-dollar{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    font-size:80px; line-height:1; letter-spacing:-0.04em; color:var(--cream);
+  }
+  .pricing-card.featured .pricing-dollar{ color:var(--orange); }
+  .pricing-period{
+    font-family:'Space Mono',monospace; font-size:11px;
+    letter-spacing:0.1em; color:var(--muted); text-transform:uppercase;
+  }
+  .pricing-divider{ height:1px; background:var(--line); margin-bottom:32px; }
+
+  .pricing-includes{
+    font-family:'Space Mono',monospace; font-size:10px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:20px; display:block;
+  }
+  .pricing-list{
+    list-style:none; display:flex; flex-direction:column; gap:14px;
+    margin-bottom:48px;
+  }
+  .pricing-list li{
+    display:flex; align-items:flex-start; gap:14px;
+    font-size:14px; color:var(--cream); line-height:1.5;
+  }
+  .pricing-list li .chk{
+    width:18px; height:18px; border-radius:50%; flex-shrink:0;
+    border:1.5px solid rgba(37,99,235,0.5);
+    display:flex; align-items:center; justify-content:center;
+    margin-top:2px;
+  }
+  .pricing-card.featured .pricing-list li .chk{
+    background:var(--orange); border-color:var(--orange);
+  }
+  .pricing-list li .chk svg{ width:9px; height:9px; }
+
+  .pricing-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid var(--line); color:var(--cream);
+    text-decoration:none; font-family:'Space Mono',monospace;
+    font-size:11px; letter-spacing:0.15em; text-transform:uppercase;
+    padding:16px 28px; border-radius:4px; cursor:pointer;
+    transition:all 0.3s ease; margin-top:auto; width:fit-content;
+    background:transparent;
+  }
+  .pricing-cta:hover{ border-color:var(--orange); color:var(--orange); }
+  .pricing-card.featured .pricing-cta{
+    background:var(--orange); border-color:var(--orange); color:#fff;
+  }
+  .pricing-card.featured .pricing-cta:hover{
+    background:#1d4ed8; border-color:#1d4ed8;
+  }
+
+  .pricing-callout{
+    margin-top:2px; padding:28px 36px;
+    background:#0e0f11; border:1px solid var(--line);
+    border-top:none; display:flex; align-items:center;
+    gap:24px; flex-wrap:wrap;
+  }
+  .pricing-callout-text{
+    flex:1; min-width:240px;
+    font-size:14px; color:var(--muted); line-height:1.7;
+  }
+  .pricing-callout-text strong{ color:var(--cream); font-size:15px; display:block; margin-bottom:4px; }
+  .pricing-callout-pill{
+    background:rgba(37,99,235,0.1); color:var(--orange);
+    border:1px solid rgba(37,99,235,0.3);
+    font-family:'Space Mono',monospace; font-size:11px;
+    letter-spacing:0.1em; text-transform:uppercase;
+    padding:10px 20px; border-radius:999px; white-space:nowrap; flex-shrink:0;
+  }
 
   /* ---- Process ---- */
-  .process{ background:var(--cream); color:var(--ink); }
-  .process .mono{ color:var(--orange-dim); }
-  .process .section-desc{ color:var(--muted-dark); }
+  .process{ background:#080a0d; }
+  .process .section-desc{ color:var(--muted); }
   .process-list{ display:flex; flex-direction:column; }
   .process-row{
     display:grid; grid-template-columns:90px 1fr 1fr;
-    gap:40px; padding:34px 0; border-top:1px solid var(--line-dark);
-    align-items:center;
+    gap:40px; padding:34px 0; border-top:1px solid var(--line);
+    align-items:start;
   }
-  .process-list .process-row:last-child{ border-bottom:1px solid var(--line-dark); }
-  .process-num{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:34px; color:var(--orange); letter-spacing:-0.02em; }
+  .process-list .process-row:last-child{ border-bottom:1px solid var(--line); }
+  .process-num{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    font-size:34px; color:var(--orange); letter-spacing:-0.02em;
+    padding-top:4px;
+  }
   .process-row h3{
-    font-family:'Bricolage Grotesque',sans-serif; font-weight:800; text-transform:uppercase; font-size:24px; letter-spacing:-0.01em;
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    text-transform:uppercase; font-size:24px; letter-spacing:-0.01em;
+    padding-top:2px;
   }
-  .process-row p{ color:var(--muted-dark); font-size:14px; line-height:1.6; }
+  .process-row p{ color:var(--muted); font-size:14px; line-height:1.7; }
+  .process-badge{
+    display:inline-flex; align-items:center; margin-top:10px;
+    font-family:'Space Mono',monospace; font-size:9px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    padding:4px 10px; border-radius:999px; border:1px solid var(--line);
+    color:var(--muted);
+  }
+  .process-badge.all{ border-color:rgba(37,99,235,0.3); color:var(--orange); }
+  .process-badge.full-only{ border-color:rgba(37,99,235,0.5); color:var(--orange); background:rgba(37,99,235,0.1); }
 
   /* ---- Signature / drawn divider ---- */
   .signature{
@@ -415,16 +521,18 @@
     .hero-top{ position:relative; top:0; flex-direction:column; gap:16px; padding-top:90px; }
     .hero-blurb{ text-align:left; }
     .hero{ padding-top:0; }
-    .services-grid{ grid-template-columns:repeat(2,1fr); }
+    .pricing-grid{ grid-template-columns:1fr; }
     .process-row{ grid-template-columns:60px 1fr; }
     .process-row p{ grid-column:2; }
+    .process-badge{ grid-column:2; }
     .booking{ grid-template-columns:1fr; }
     .booking-info, .booking-form{ padding:40px; }
   }
   @media (max-width:640px){
     nav ul{ display:none; }
     .nav-toggle{ display:flex; }
-    .services-grid{ grid-template-columns:1fr; }
+    .pricing-card{ padding:36px 28px; }
+    .pricing-dollar{ font-size:64px; }
     .field-row{ grid-template-columns:1fr; }
     section{ padding:80px 5%; }
     .hero-bottom-bar{ flex-direction:column; }
@@ -546,47 +654,98 @@
     <div class="section-head">
       <div>
         <span class="mono">02 — Services</span>
-        <h2 class="section-title display">Detailing, tiered to your vehicle.</h2>
+        <h2 class="section-title display">Professional work.<br>Honest pricing.</h2>
       </div>
       <p class="section-desc">
-        Every package starts with a full inspection. From there, we build a plan
-        around your car's paint condition, interior wear, and how you drive it.
+        Two packages. No hidden fees. Every dollar goes straight into the quality of the detail on your car.
       </p>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="service-num mono">01</span>
-        <div>
-          <h3>Signature Detail</h3>
-          <p>Hand wash, clay decontamination, interior deep clean, and tire &amp; trim dressing. The full reset.</p>
+
+    <div class="pricing-grid">
+
+      <!-- Exterior Wash -->
+      <div class="pricing-card">
+        <div class="pricing-spacer"></div>
+        <span class="pricing-label">Package 01</span>
+        <h2 class="pricing-name display">Exterior<br>Wash</h2>
+        <p class="pricing-tagline">A proper outside clean — not a drive-through. Every step done by hand, start to finish.</p>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$50</span>
+          <span class="pricing-period">/ session</span>
         </div>
+        <div class="pricing-divider"></div>
+        <span class="pricing-includes">What's included</span>
+        <ul class="pricing-list">
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Prewash — foam strip before any contact
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Contact wash — hand-washed panel by panel
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Deep wheel cleaning — barrels, faces &amp; wells
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Spray wax — sealed protection every time
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Window touch up — streak-free glass
+          </li>
+        </ul>
+        <a href="#booking" class="pricing-cta">Book Exterior Wash &rarr;</a>
       </div>
-      <div class="service-card">
-        <span class="service-num mono">02</span>
-        <div>
-          <h3>Paint Correction</h3>
-          <p>Multi-stage machine polish to remove swirl marks, scratches, and oxidation — restoring true gloss.</p>
+
+      <!-- Full Service -->
+      <div class="pricing-card featured">
+        <div class="value-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><polygon points="5,1 6.2,3.8 9.2,4.1 7,6.1 7.6,9.1 5,7.6 2.4,9.1 3,6.1 0.8,4.1 3.8,3.8" fill="white"/></svg>
+          Best Value
         </div>
-      </div>
-      <div class="service-card">
-        <span class="service-num mono">03</span>
-        <div>
-          <h3>Ceramic Coating</h3>
-          <p>Long-term protection with a hydrophobic finish that keeps your paint looking detailed for years.</p>
+        <span class="pricing-label">Package 02</span>
+        <h2 class="pricing-name display">Full<br>Service</h2>
+        <p class="pricing-tagline">The complete reset — outside and in. All of the Exterior Wash, plus a thorough interior detail.</p>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$70</span>
+          <span class="pricing-period">/ session</span>
         </div>
+        <div class="pricing-divider"></div>
+        <span class="pricing-includes">Everything in Exterior Wash, plus</span>
+        <ul class="pricing-list">
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Full interior vacuum
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Seat dressing — conditioned &amp; protected
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Air freshener — cabin smells new again
+          </li>
+          <li>
+            <span class="chk"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.5,6.8 7.5,2" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Full scrapdown — every surface wiped clean
+          </li>
+        </ul>
+        <a href="#booking" class="pricing-cta">Book Full Service &rarr;</a>
       </div>
-      <div class="service-card">
-        <span class="service-num mono">04</span>
-        <div>
-          <h3>Interior Restoration</h3>
-          <p>Leather conditioning, carpet extraction, headliner cleaning, and odor elimination.</p>
-        </div>
-      </div>
+
     </div>
-    <div class="service-edit">
-      <b>Placeholder content —</b> send over your actual service names, descriptions, and pricing tiers
-      (e.g. Bronze / Silver / Gold) and these four cards will be updated to match exactly.
+
+    <div class="pricing-callout">
+      <div class="pricing-callout-text">
+        <strong>Add $20 to your exterior wash.</strong>
+        Get a complete interior detail included — vacuum, seat treatment, air freshener, and a full wipe-down. Most shops charge double this separately.
+      </div>
+      <span class="pricing-callout-pill">Full Service &mdash; $70</span>
     </div>
+
   </section>
 
   <!-- ============ PROCESS ============ -->
@@ -594,39 +753,59 @@
     <div class="section-head">
       <div>
         <span class="mono">03 — The Process</span>
-        <h2 class="section-title display">Five steps. Every vehicle.</h2>
+        <h2 class="section-title display">How we work.<br>Every time.</h2>
       </div>
       <p class="section-desc">
-        Consistency is the difference between a wash and a detail. This is the
-        sequence every car goes through, regardless of package.
+        Same sequence on every car — no shortcuts depending on the day or the price you paid.
       </p>
     </div>
     <div class="process-list">
+
       <div class="process-row">
         <div class="process-num">01</div>
-        <h3>Inspect</h3>
-        <p>Full walk-around to assess paint condition, interior wear, and any problem areas before we start.</p>
+        <h3>Prewash</h3>
+        <div>
+          <p>Foam cannon applied before any mitt touches the paint. Loose grime and road film pulled off contactlessly to protect the clear coat from the start.</p>
+          <span class="process-badge all">Exterior &amp; Full Service</span>
+        </div>
       </div>
+
       <div class="process-row">
         <div class="process-num">02</div>
-        <h3>Decontaminate</h3>
-        <p>Foam pre-wash, hand wash, and clay bar treatment to strip embedded contaminants from the paint.</p>
+        <h3>Contact Wash</h3>
+        <div>
+          <p>Two-bucket hand wash, panel by panel. Premium mitts, proper technique — no pressure gun shortcuts that grind grit into your paint.</p>
+          <span class="process-badge all">Exterior &amp; Full Service</span>
+        </div>
       </div>
+
       <div class="process-row">
         <div class="process-num">03</div>
-        <h3>Correct</h3>
-        <p>Machine polishing removes swirl marks and light scratches, bringing back true depth and clarity.</p>
+        <h3>Wheel Detail</h3>
+        <div>
+          <p>Barrel, face, and wheel well scrubbed individually. Brake dust pulled from every gap, tires dressed and treated so they stay clean longer.</p>
+          <span class="process-badge all">Exterior &amp; Full Service</span>
+        </div>
       </div>
+
       <div class="process-row">
         <div class="process-num">04</div>
-        <h3>Protect</h3>
-        <p>Ceramic coating or sealant applied for a finish that resists dirt, water, and UV fading.</p>
+        <h3>Protect &amp; Finish</h3>
+        <div>
+          <p>Spray wax laid over the paint for a sealed, hydrophobic layer. Windows cleaned inside and out, finished streak-free and crystal clear.</p>
+          <span class="process-badge all">Exterior &amp; Full Service</span>
+        </div>
       </div>
+
       <div class="process-row">
         <div class="process-num">05</div>
-        <h3>Finish</h3>
-        <p>Interior detail, tire dressing, glass polish, and a final inspection before handoff.</p>
+        <h3>Interior Detail</h3>
+        <div>
+          <p>Full vacuum, seat dressing applied and conditioned, air freshener set, and every interior surface scraped and wiped down clean.</p>
+          <span class="process-badge full-only">Full Service Only</span>
+        </div>
       </div>
+
     </div>
   </section>
 
