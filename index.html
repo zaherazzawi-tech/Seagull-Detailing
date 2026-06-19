@@ -459,7 +459,22 @@
   .process-badge.all{ border-color:rgba(37,99,235,0.3); color:var(--orange); }
   .process-badge.full-only{ border-color:rgba(37,99,235,0.5); color:var(--orange); background:rgba(37,99,235,0.1); }
 
-  /* ---- Signature / drawn divider ---- */
+  /* ---- Quote / Signature ---- */
+  .quote-section{
+    background:var(--quote-bg, var(--bg));
+    background-size:cover;
+    background-position:center;
+    position:relative;
+  }
+  .quote-section::before{
+    content:'';
+    position:absolute; inset:0;
+    background:rgba(8,8,9,0.55);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity 0.3s;
+  }
+  .quote-section.has-bg::before{ opacity:1; }
   .signature{
     display:flex; flex-direction:column; align-items:center; text-align:center;
     gap:18px;
@@ -635,27 +650,13 @@
         Built for<br>the <span class="accent">coast.</span>
       </h1>
     </div>
-    <div class="hero-bottom-bar">
-      <a href="#booking">
-        Book a mobile detail
-        <span class="arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </a>
-      <a href="#services">
-        View packages &amp; pricing
-        <span class="arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </a>
-    </div>
   </div>
 
   <!-- ============ MARQUEE ============ -->
   <div class="marquee">
     <div class="marquee-track">
-      <span>Paint Correction <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Ceramic Coating <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Interior Restoration <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Mobile Detailing</span>
-      <span>Paint Correction <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Ceramic Coating <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Interior Restoration <svg width="20" height="20" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Mobile Detailing</span>
+      <span>Exterior Wash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Full Service <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Prewash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Contact Wash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Deep Wheel Cleaning <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Spray Wax <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Window Touch Up <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Vacuum <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Seat Dressing <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Air Freshener <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Full Scrapdown</span>
+      <span>Exterior Wash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Full Service <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Prewash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Contact Wash <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Deep Wheel Cleaning <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Spray Wax <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Window Touch Up <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Vacuum <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Seat Dressing <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Air Freshener <svg width="16" height="16" viewBox="0 0 100 100" fill="none" stroke="var(--orange)" stroke-width="6"><path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60"/></svg> Full Scrapdown</span>
     </div>
   </div>
 
@@ -666,9 +667,6 @@
         <span class="mono">02 — Services</span>
         <h2 class="section-title display">Professional work.<br>Honest pricing.</h2>
       </div>
-      <p class="section-desc">
-        Two packages. No hidden fees. Every dollar goes straight into the quality of the detail on your car.
-      </p>
     </div>
 
     <div class="pricing-grid">
@@ -678,7 +676,6 @@
         <div class="pricing-spacer"></div>
         <span class="pricing-label">Package 01</span>
         <h2 class="pricing-name display">Exterior<br>Wash</h2>
-        <p class="pricing-tagline">A proper outside clean — not a drive-through. Every step done by hand, start to finish.</p>
         <div class="pricing-price">
           <span class="pricing-dollar">$50</span>
           <span class="pricing-period">/ session</span>
@@ -718,7 +715,6 @@
         </div>
         <span class="pricing-label">Package 02</span>
         <h2 class="pricing-name display">Full<br>Service</h2>
-        <p class="pricing-tagline">The complete reset — outside and in. All of the Exterior Wash, plus a thorough interior detail.</p>
         <div class="pricing-price">
           <span class="pricing-dollar">$70</span>
           <span class="pricing-period">/ session</span>
@@ -758,69 +754,9 @@
 
   </section>
 
-  <!-- ============ PROCESS ============ -->
-  <section id="process" class="process reveal">
-    <div class="section-head">
-      <div>
-        <span class="mono">03 — The Process</span>
-        <h2 class="section-title display">How we work.<br>Every time.</h2>
-      </div>
-      <p class="section-desc">
-        Same sequence on every car — no shortcuts depending on the day or the price you paid.
-      </p>
-    </div>
-    <div class="process-list">
-
-      <div class="process-row">
-        <div class="process-num">01</div>
-        <h3>Prewash</h3>
-        <div>
-          <p>Foam cannon applied before any mitt touches the paint. Loose grime and road film pulled off contactlessly to protect the clear coat from the start.</p>
-          <span class="process-badge all">Exterior &amp; Full Service</span>
-        </div>
-      </div>
-
-      <div class="process-row">
-        <div class="process-num">02</div>
-        <h3>Contact Wash</h3>
-        <div>
-          <p>Two-bucket hand wash, panel by panel. Premium mitts, proper technique — no pressure gun shortcuts that grind grit into your paint.</p>
-          <span class="process-badge all">Exterior &amp; Full Service</span>
-        </div>
-      </div>
-
-      <div class="process-row">
-        <div class="process-num">03</div>
-        <h3>Wheel Detail</h3>
-        <div>
-          <p>Barrel, face, and wheel well scrubbed individually. Brake dust pulled from every gap, tires dressed and treated so they stay clean longer.</p>
-          <span class="process-badge all">Exterior &amp; Full Service</span>
-        </div>
-      </div>
-
-      <div class="process-row">
-        <div class="process-num">04</div>
-        <h3>Protect &amp; Finish</h3>
-        <div>
-          <p>Spray wax laid over the paint for a sealed, hydrophobic layer. Windows cleaned inside and out, finished streak-free and crystal clear.</p>
-          <span class="process-badge all">Exterior &amp; Full Service</span>
-        </div>
-      </div>
-
-      <div class="process-row">
-        <div class="process-num">05</div>
-        <h3>Interior Detail</h3>
-        <div>
-          <p>Full vacuum, seat dressing applied and conditioned, air freshener set, and every interior surface scraped and wiped down clean.</p>
-          <span class="process-badge full-only">Full Service Only</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ============ SIGNATURE ============ -->
-  <section>
+  <!-- To set a background: add style="background: url('your-image.jpg') center/cover" to the section below, or set a solid color like style="background:#111" -->
+  <section class="quote-section">
     <div class="signature reveal" id="signature">
       <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
         <path d="M20,150 C22,135 35,120 60,118 L130,108 C160,95 200,85 250,82 C270,60 320,55 360,58 C400,60 430,68 450,80 L500,88 C530,92 555,105 568,125 C572,135 572,145 568,150 L540,150 C540,135 528,122 510,122 C492,122 480,135 480,150 L160,150 C160,135 148,122 130,122 C112,122 100,135 100,150 Z"/>
