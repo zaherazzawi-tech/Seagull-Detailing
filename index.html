@@ -58,46 +58,23 @@
   }
   #intro.hide{
     animation:wipeUp 0.9s cubic-bezier(.65,0,.35,1) forwards;
-    animation-delay:3.4s;
     pointer-events:none;
   }
   @keyframes wipeUp{
     to{ transform:translateY(-100%); }
   }
 
+  /* ---- Car reveal: image wiped in from left to right ---- */
   .intro-mark{
-    width:min(70vw,420px);
-    color:var(--ink);
+    width:min(70vw,520px);
+    height:auto;
+    display:block;
+    /* start fully hidden, revealed left -> right */
+    clip-path:inset(0 100% 0 0);
+    animation:carReveal 1.6s cubic-bezier(.76,0,.24,1) forwards;
+    animation-delay:0.3s;
   }
-  .intro-mark path, .intro-mark circle{
-    fill:none;
-    stroke:var(--ink);
-    stroke-width:2.5;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-  }
-  .car-body{
-    stroke-dasharray:2200;
-    stroke-dashoffset:2200;
-    animation:draw 1.7s cubic-bezier(.65,0,.35,1) forwards;
-    animation-delay:0.15s;
-  }
-  .car-wheel{
-    stroke-dasharray:220;
-    stroke-dashoffset:220;
-    animation:draw 0.6s ease-out forwards;
-    animation-delay:1.5s;
-  }
-  .car-wheel.rear{ animation-delay:1.65s; }
-  .car-detail{
-    stroke-dasharray:400;
-    stroke-dashoffset:400;
-    stroke-width:1.5;
-    opacity:0;
-    animation:draw 0.9s ease-out forwards, fadeIn 0.1s linear forwards;
-    animation-delay:1.0s;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes carReveal{ to{ clip-path:inset(0 0 0 0); } }
   @keyframes fadeIn{ to{ opacity:1; } }
 
   .intro-word{
@@ -487,8 +464,8 @@
     transition:stroke-dashoffset 1.8s cubic-bezier(.65,0,.35,1);
   }
   .signature svg circle{ stroke-dasharray:220; stroke-dashoffset:220; transition-delay:0.3s; }
-  .signature.in svg path{ stroke-dashoffset:0; }
-  .signature.in svg circle{ stroke-dashoffset:0; }
+  .signature.in svg path{ stroke-dashoffset:0 !important; }
+  .signature.in svg circle{ stroke-dashoffset:0 !important; }
   .signature h2{ font-size:clamp(28px,5vw,52px); max-width:760px; }
   .signature h2 span{ color:var(--orange); }
 
@@ -576,27 +553,7 @@
 
   <!-- ============ INTRO ============ -->
   <div id="intro" aria-hidden="true">
-    <svg class="intro-mark" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-      <path class="car-body" d="M20,150 C22,135 35,120 60,118 L130,108 C160,95 200,85 250,82 C270,60 320,55 360,58 C400,60 430,68 450,80 L500,88 C530,92 555,105 568,125 C572,135 572,145 568,150 L540,150 C540,135 528,122 510,122 C492,122 480,135 480,150 L160,150 C160,135 148,122 130,122 C112,122 100,135 100,150 Z"/>
-      <path class="car-detail" d="M140,112 C220,104 300,108 380,104 C430,102 460,96 490,86"/>
-      <circle class="car-wheel front" cx="115" cy="150" r="33"/>
-      <circle class="car-wheel rear" cx="510" cy="150" r="33"/>
-    </svg>
-    <script>
-      (function(){
-        var svg = document.currentScript.previousElementSibling;
-        svg.querySelectorAll('path').forEach(function(p){
-          var len = p.getTotalLength();
-          p.style.strokeDasharray = len;
-          p.style.strokeDashoffset = len;
-        });
-        svg.querySelectorAll('circle').forEach(function(c){
-          var len = c.getTotalLength();
-          c.style.strokeDasharray = len;
-          c.style.strokeDashoffset = len;
-        });
-      })();
-    </script>
+    <img class="intro-mark" src="car.png" alt="McLaren P1" />
     <div class="intro-word">
       <span style="animation-delay:1.85s">S</span>
       <span style="animation-delay:1.90s">E</span>
@@ -631,7 +588,6 @@
     <nav>
       <ul>
         <li><a href="#services">Services</a></li>
-        <li><a href="#process">Process</a></li>
         <li><a href="#booking">Booking</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -783,12 +739,47 @@
     </div>
   </section>
 
+  <!-- ============ SERVICE AREA MAP ============ -->
+  <section id="area" style="padding:80px 5%; background:var(--bg);">
+    <div class="reveal" style="max-width:1100px;margin:0 auto;">
+      <span class="mono" style="color:var(--orange);">04 — Service Area</span>
+      <h2 class="display" style="margin-top:14px;margin-bottom:10px;">We come to you<br><span style="color:var(--orange);">anywhere in San Diego.</span></h2>
+      <p style="margin-bottom:36px;color:var(--muted);max-width:520px;">Mobile detailing means zero hassle — we show up at your home, office, or wherever works. Covering all of San Diego County.</p>
+      <div id="service-map" style="width:100%;height:480px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.09);"></div>
+    </div>
+  </section>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function(){
+      var map = L.map('service-map',{center:[32.82,-117.05],zoom:10,scrollWheelZoom:false});
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+      L.circle([32.82,-117.05],{color:'#2563eb',fillColor:'#2563eb',fillOpacity:0.12,weight:2,radius:55000}).addTo(map);
+      var cities=[
+        {n:'San Diego',lat:32.7157,lng:-117.1611,main:true},
+        {n:'Chula Vista',lat:32.6401,lng:-117.0842},
+        {n:'Oceanside',lat:33.1959,lng:-117.3795},
+        {n:'Escondido',lat:33.1192,lng:-117.0864},
+        {n:'El Cajon',lat:32.7948,lng:-116.9625},
+        {n:'Carlsbad',lat:33.1581,lng:-117.3506},
+        {n:'La Jolla',lat:32.8328,lng:-117.2713},
+        {n:'Poway',lat:32.9628,lng:-117.0359},
+        {n:'Encinitas',lat:33.0369,lng:-117.2920},
+        {n:'National City',lat:32.6781,lng:-117.0992}
+      ];
+      cities.forEach(function(c){
+        var icon=L.divIcon({className:'',html:'<div style="width:'+(c.main?12:8)+'px;height:'+(c.main?12:8)+'px;background:'+(c.main?'#2563eb':'#3b82f6')+';border-radius:50%;border:2px solid '+(c.main?'#93c5fd':'#2563eb')+';"></div>',iconSize:[c.main?12:8,c.main?12:8],iconAnchor:[c.main?6:4,c.main?6:4]});
+        L.marker([c.lat,c.lng],{icon:icon}).addTo(map).bindTooltip(c.n,{permanent:c.main,direction:'top',offset:[0,-10],opacity:1});
+      });
+    })();
+  </script>
+
   <!-- ============ BOOKING ============ -->
   <section id="booking" class="reveal">
     <div class="booking">
       <div class="booking-info">
         <div>
-          <span class="mono" style="color:var(--orange)">04 — Booking</span>
+          <span class="mono" style="color:var(--orange)">05 — Booking</span>
           <h2 class="display" style="margin-top:14px;">Get on<br>the schedule.</h2>
           <p style="margin-top:20px;">
             Tell us about your vehicle and what it needs. We'll follow up within
@@ -881,9 +872,9 @@
     // Intro: allow click to skip
     const intro = document.getElementById('intro');
     intro.addEventListener('click', () => intro.classList.add('skip'));
-    // Trigger the wipe-away after the animation timeline finishes
-    setTimeout(() => intro.classList.add('hide'), 50);
-    setTimeout(() => intro.remove(), 4400);
+    // Add 'hide' after the drawing animations finish (~2.6s), then wipeUp plays with its 0.9s duration
+    setTimeout(() => intro.classList.add('hide'), 3200);
+    setTimeout(() => intro.remove(), 4600);
 
     // Header background on scroll
     const header = document.getElementById('header');
