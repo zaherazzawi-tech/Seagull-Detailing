@@ -142,11 +142,11 @@
     font-family:'Hanken Grotesk',sans-serif;
     font-weight:900;
     font-size:20px;
-    letter-spacing:0.04em;
+    letter-spacing:0.01em;
+    word-spacing:-0.05em;
     color:var(--cream);
-    display:flex; align-items:center; gap:10px;
+    display:flex; align-items:center;
   }
-  .logo svg{ width:26px; height:26px; }
   .logo span{ color:var(--orange); }
 
   nav ul{
@@ -175,8 +175,38 @@
   .nav-cta::after{ display:none; }
   .nav-cta:hover{ background:#3b82f6; color:#020c1a !important; }
 
-  .nav-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
-  .nav-toggle span{ width:24px; height:2px; background:var(--cream); }
+  .nav-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+  .nav-toggle span{ width:22px; height:2px; background:var(--cream); transition:transform 0.3s ease, opacity 0.3s ease; display:block; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none; position:fixed; top:0; left:0; right:0; z-index:490;
+    background:rgba(12,12,13,0.97); backdrop-filter:blur(16px);
+    padding:80px 5% 36px;
+    flex-direction:column; gap:4px;
+    border-bottom:1px solid var(--line);
+    transform:translateY(-110%);
+    transition:transform 0.4s cubic-bezier(.65,0,.35,1);
+  }
+  .mobile-nav.open{ transform:translateY(0); }
+  .mobile-nav a{
+    display:block; padding:16px 0;
+    font-size:clamp(28px,7vw,42px); font-weight:900;
+    text-transform:uppercase; letter-spacing:-0.02em;
+    color:var(--cream); text-decoration:none;
+    border-bottom:1px solid var(--line);
+    transition:color 0.2s;
+  }
+  .mobile-nav a:last-child{ border-bottom:none; }
+  .mobile-nav a:hover{ color:var(--orange); }
+  .mobile-nav .mobile-call{
+    margin-top:24px; display:flex; align-items:center; gap:10px;
+    color:var(--orange); font-size:16px; font-weight:700;
+    text-decoration:none; letter-spacing:0; text-transform:none;
+    font-size:18px;
+  }
 
   /* ============ HERO ============ */
   .hero{
@@ -513,13 +543,14 @@
   .field{ margin-bottom:22px; }
   .field label{ display:block; font-size:12px; color:var(--muted); margin-bottom:8px; letter-spacing:0.05em; }
   .field input, .field select{
-    width:100%; background:transparent; border:none; border-bottom:1px solid var(--line);
-    padding:10px 0; color:var(--cream); font-size:15px; font-family:'Hanken Grotesk',sans-serif;
-    outline:none; transition:border-color 0.25s;
+    width:100%; background:#1a1b1e; border:none; border-radius:6px;
+    border:1px solid rgba(255,255,255,0.07);
+    padding:12px 14px; color:var(--cream); font-size:15px; font-family:'Hanken Grotesk',sans-serif;
+    outline:none; transition:border-color 0.25s, background 0.25s;
   }
-  .field select option{ background:#15161a; color:var(--cream); }
-  .field input::placeholder{ color:#55555a; }
-  .field input:focus, .field select:focus{ border-color:var(--orange); }
+  .field select option{ background:#1a1b1e; color:var(--cream); }
+  .field input::placeholder{ color:#4a4a50; }
+  .field input:focus, .field select:focus{ border-color:var(--orange); background:#1e1f24; }
   .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
   .submit-btn{
     margin-top:12px; width:100%; padding:18px;
@@ -564,14 +595,35 @@
   @media (max-width:640px){
     nav ul{ display:none; }
     .nav-toggle{ display:flex; }
-    .pricing-card{ padding:36px 28px; }
-    .pricing-dollar{ font-size:64px; }
+    .mobile-nav{ display:flex; }
+    .pricing-card{ padding:28px 22px; }
+    .pricing-dollar{ font-size:56px; }
+    .pricing-name{ font-size:clamp(28px,8vw,40px); }
     .field-row{ grid-template-columns:1fr; }
-    section{ padding:80px 5%; }
+    section{ padding:60px 5%; }
+    .hero-title{ font-size:clamp(36px,11vw,72px); text-align:right; }
     .hero-bottom-bar{ flex-direction:column; }
     .hero-bottom-bar a{ border-right:none; border-bottom:1px solid var(--line); padding:18px 0 !important; }
     .hero-bottom-bar a:last-child{ border-bottom:none; }
     footer{ flex-direction:column; }
+    .call-btn{ width:100%; justify-content:center; font-size:16px; }
+    .booking-info, .booking-form{ padding:28px 22px; }
+    .signature h2{ font-size:clamp(24px,7vw,40px); }
+    .section-title{ font-size:clamp(26px,8vw,48px); }
+    .pricing-callout{ flex-direction:column; gap:14px; padding:20px; }
+  }
+  /* Landscape phones — show background, compact hero */
+  @media (max-height:500px) and (orientation:landscape){
+    .hero{
+      min-height:100svh;
+      padding-bottom:28px;
+      background-position:center center;
+    }
+    .hero-top{ padding-top:64px; }
+    .hero-title{ font-size:clamp(28px,6vw,56px); }
+    .hero-content{ margin-top:auto; }
+    #intro{ flex-direction:row; gap:32px; align-items:center; }
+    .intro-mark{ width:min(40vw,280px); }
   }
 </style>
 </head>
@@ -606,9 +658,6 @@
   <!-- ============ HEADER ============ -->
   <header id="header">
     <div class="logo">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 60 C 25 35, 45 35, 50 50 C 55 35, 75 35, 90 60" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
       SEAGULL <span>DETAILING</span>
     </div>
     <nav>
@@ -618,9 +667,20 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-    <a href="#booking" class="nav-cta">Book a Detail</a>
+    <a href="tel:6199814233" class="nav-cta">Call Us</a>
     <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </header>
+
+  <!-- ============ MOBILE NAV ============ -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#booking" class="mobile-nav-link">Booking</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="tel:6199814233" class="mobile-call">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      (619) 981-4233
+    </a>
+  </div>
 
   <!-- ============ HERO ============ -->
   <div class="hero">
@@ -729,7 +789,6 @@
     <div class="pricing-callout">
       <div class="pricing-callout-text">
         <strong>Add $20 to your exterior wash.</strong>
-        Get a complete interior detail included — vacuum, seat treatment, air freshener, and a full wipe-down. Most shops charge double this separately.
       </div>
       <span class="pricing-callout-pill">Full Service &mdash; $70</span>
     </div>
@@ -748,7 +807,6 @@
     <div class="reveal" style="max-width:1100px;margin:0 auto;">
       <span class="mono" style="color:var(--orange);">04 — Service Area</span>
       <h2 class="display" style="margin-top:14px;margin-bottom:10px;">We come to you<br><span style="color:var(--orange);">anywhere in San Diego.</span></h2>
-      <p style="margin-bottom:36px;color:var(--muted);max-width:520px;">Mobile detailing means zero hassle — we show up at your home, office, or wherever works. Covering all of San Diego County.</p>
       <div id="service-map" style="width:100%;height:480px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.09);"></div>
     </div>
   </section>
@@ -785,9 +843,6 @@
         <div>
           <span class="mono" style="color:var(--orange)">05 — Booking</span>
           <h2 class="display" style="margin-top:14px;">Fastest way<br>is a call.</h2>
-          <p style="margin-top:20px; color:var(--muted); font-size:15px; line-height:1.7; max-width:340px;">
-            Give us a call and we'll lock in a time in minutes. We pick up — no voicemail loops, no waiting.
-          </p>
           <a href="tel:6199814233" class="call-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             (619) 981-4233
@@ -884,6 +939,20 @@
     // Add 'hide' after the drawing animations finish (~2.6s), then wipeUp plays with its 0.9s duration
     setTimeout(() => intro.classList.add('hide'), 5200);
     setTimeout(() => intro.remove(), 6400);
+
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('mobileNav');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-nav-link, .mobile-call').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
+    });
 
     // Header background on scroll
     const header = document.getElementById('header');
