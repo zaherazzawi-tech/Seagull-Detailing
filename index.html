@@ -97,7 +97,7 @@
     color:var(--muted-dark);
     opacity:0;
     animation:fadeIn 0.6s ease forwards;
-    animation-delay:4.1s;
+    animation-delay:3.1s;
   }
   @keyframes riseUp{ to{ transform:translateY(0); } }
 
@@ -107,7 +107,7 @@
     background:var(--orange);
     margin:14px auto 0;
     animation:underlineGrow 0.8s cubic-bezier(.65,0,.35,1) forwards;
-    animation-delay:3.5s;
+    animation-delay:2.5s;
   }
   @keyframes underlineGrow{ to{ width:100%; } }
 
@@ -478,9 +478,36 @@
   .booking-info{ padding:64px; display:flex; flex-direction:column; justify-content:space-between; }
   .booking-info h2{ font-size:clamp(34px,5vw,58px); margin-bottom:20px; }
   .booking-info p{ color:var(--muted); font-size:15px; line-height:1.7; max-width:380px; }
-  .booking-meta{ margin-top:48px; display:flex; flex-direction:column; gap:18px; }
+  .booking-meta{ margin-top:36px; display:flex; flex-direction:column; gap:16px; }
   .booking-meta div{ font-size:14px; color:var(--cream); }
   .booking-meta .mono{ color:var(--orange); display:block; margin-bottom:4px; }
+
+  .call-btn{
+    display:flex; align-items:center; gap:12px;
+    background:var(--orange); color:#fff; text-decoration:none;
+    padding:18px 28px; border-radius:8px; margin-top:32px;
+    font-weight:700; font-size:18px; letter-spacing:-0.01em;
+    transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    width:fit-content;
+  }
+  .call-btn:hover{ background:#1d4ed8; transform:translateY(-2px); box-shadow:0 10px 32px rgba(37,99,235,0.4); }
+  .call-btn svg{ width:20px; height:20px; flex-shrink:0; }
+
+  .email-fallback{
+    margin-top:20px; font-size:13px; color:var(--muted); line-height:1.7;
+  }
+  .email-fallback a{
+    color:var(--cream); text-decoration:none; border-bottom:1px solid var(--line);
+    transition:color 0.2s, border-color 0.2s;
+  }
+  .email-fallback a:hover{ color:var(--orange); border-color:var(--orange); }
+
+  .booking-form-label{
+    font-family:'Hanken Grotesk',sans-serif; font-weight:600;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:28px; display:block;
+    padding-bottom:16px; border-bottom:1px solid var(--line);
+  }
 
   .booking-form{ padding:64px; background:rgba(255,255,255,0.02); }
   .field{ margin-bottom:22px; }
@@ -554,23 +581,23 @@
   <div id="intro" aria-hidden="true">
     <img class="intro-mark" src="car.png" alt="McLaren P1" />
     <div class="intro-word">
-      <span style="animation-delay:3.20s">S</span>
-      <span style="animation-delay:3.25s">E</span>
-      <span style="animation-delay:3.30s">A</span>
-      <span style="animation-delay:3.35s">G</span>
-      <span style="animation-delay:3.40s">U</span>
-      <span style="animation-delay:3.45s">L</span>
-      <span style="animation-delay:3.50s">L</span>
+      <span style="animation-delay:2.20s">S</span>
+      <span style="animation-delay:2.25s">E</span>
+      <span style="animation-delay:2.30s">A</span>
+      <span style="animation-delay:2.35s">G</span>
+      <span style="animation-delay:2.40s">U</span>
+      <span style="animation-delay:2.45s">L</span>
+      <span style="animation-delay:2.50s">L</span>
       <span style="width:0.4em;display:inline-block;animation-delay:0s"></span>
-      <span style="animation-delay:3.57s">D</span>
-      <span style="animation-delay:3.62s">E</span>
-      <span style="animation-delay:3.67s">T</span>
-      <span style="animation-delay:3.72s">A</span>
-      <span style="animation-delay:3.77s">I</span>
-      <span style="animation-delay:3.82s">L</span>
-      <span style="animation-delay:3.87s">I</span>
-      <span style="animation-delay:3.92s">N</span>
-      <span style="animation-delay:3.97s">G</span>
+      <span style="animation-delay:2.57s">D</span>
+      <span style="animation-delay:2.62s">E</span>
+      <span style="animation-delay:2.67s">T</span>
+      <span style="animation-delay:2.72s">A</span>
+      <span style="animation-delay:2.77s">I</span>
+      <span style="animation-delay:2.82s">L</span>
+      <span style="animation-delay:2.87s">I</span>
+      <span style="animation-delay:2.92s">N</span>
+      <span style="animation-delay:2.97s">G</span>
     </div>
     <div class="underline-draw"></div>
     <div class="intro-tag mono">San Diego, CA</div>
@@ -757,20 +784,27 @@
       <div class="booking-info">
         <div>
           <span class="mono" style="color:var(--orange)">05 — Booking</span>
-          <h2 class="display" style="margin-top:14px;">Get on<br>the schedule.</h2>
-          <p style="margin-top:20px;">
-            Tell us about your vehicle and what it needs. We'll follow up within
-            24 hours to confirm a time — mobile appointments come to you anywhere
-            in San Diego County.
+          <h2 class="display" style="margin-top:14px;">Fastest way<br>is a call.</h2>
+          <p style="margin-top:20px; color:var(--muted); font-size:15px; line-height:1.7; max-width:340px;">
+            Give us a call and we'll lock in a time in minutes. We pick up — no voicemail loops, no waiting.
+          </p>
+          <a href="tel:6199814233" class="call-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            (619) 981-4233
+          </a>
+          <p class="email-fallback">
+            No answer? We'll get back to you — email us at<br>
+            <a href="mailto:VanJoyce802@gmail.com">VanJoyce802@gmail.com</a>
           </p>
         </div>
         <div class="booking-meta">
-          <div><span class="mono">Studio</span>Mission Valley, San Diego, CA</div>
-          <div><span class="mono">Phone</span>(619) 555-0100</div>
-          <div><span class="mono">Hours</span>Mon – Sat, 8am – 6pm</div>
+          <div><span class="mono">Hours</span>Mon – Sun, 8am – 8pm</div>
+          <div><span class="mono">Location</span>Mission Valley, San Diego, CA</div>
+          <div><span class="mono">Response</span>We call back same day</div>
         </div>
       </div>
       <form class="booking-form" id="bookingForm">
+        <span class="booking-form-label">Or leave your details below</span>
         <div class="field">
           <label for="name">Full name</label>
           <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -778,7 +812,7 @@
         <div class="field-row">
           <div class="field">
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" placeholder="(619) 555-0123" required>
+            <input type="tel" id="phone" name="phone" placeholder="(619) 981-4233" required>
           </div>
           <div class="field">
             <label for="vehicle">Vehicle</label>
@@ -788,10 +822,8 @@
         <div class="field">
           <label for="service">Service</label>
           <select id="service" name="service">
-            <option>Signature Detail</option>
-            <option>Paint Correction</option>
-            <option>Ceramic Coating</option>
-            <option>Interior Restoration</option>
+            <option>Exterior Wash — $50</option>
+            <option>Full Service — $70</option>
             <option>Not sure — recommend something</option>
           </select>
         </div>
@@ -802,10 +834,10 @@
           </div>
           <div class="field">
             <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Mobile or studio?">
+            <input type="text" id="location" name="location" placeholder="Your address or area">
           </div>
         </div>
-        <button type="submit" class="submit-btn">Request booking</button>
+        <button type="submit" class="submit-btn">Send request — we'll call you back</button>
       </form>
     </div>
   </section>
