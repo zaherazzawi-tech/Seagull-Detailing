@@ -702,7 +702,7 @@
   <!-- ============ HERO ============ -->
   <div class="hero">
     <div class="hero-top">
-      <div class="hero-eyebrow mono">San Diego, CA</div>
+      <div class="hero-eyebrow mono">01 — San Diego, CA</div>
     </div>
     <div class="hero-content">
       <h1 class="hero-title display">
@@ -983,11 +983,31 @@
     }, { threshold: 0.15 });
     revealEls.forEach(el => obs.observe(el));
 
-    // Booking form (demo only)
+    // Booking form — opens Gmail compose with form data
     document.getElementById('bookingForm').addEventListener('submit', function(e){
       e.preventDefault();
+      const name     = document.getElementById('name').value.trim();
+      const phone    = document.getElementById('phone').value.trim();
+      const vehicle  = document.getElementById('vehicle').value.trim();
+      const service  = document.getElementById('service').value;
+      const date     = document.getElementById('date').value;
+      const location = document.getElementById('location').value.trim();
+
+      const subject = encodeURIComponent('Detailing Request — ' + name);
+      const body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Phone: ' + phone + '\n' +
+        'Vehicle: ' + vehicle + '\n' +
+        'Service: ' + service + '\n' +
+        (date ? 'Preferred Date: ' + date + '\n' : '') +
+        (location ? 'Location: ' + location + '\n' : '')
+      );
+
+      const gmailURL = 'https://mail.google.com/mail/?view=cm&to=southseagulldetailing%40gmail.com&su=' + subject + '&body=' + body;
+      window.open(gmailURL, '_blank');
+
       const btn = this.querySelector('.submit-btn');
-      btn.textContent = 'Request sent — we will call you shortly';
+      btn.textContent = 'Opening Gmail — we\'ll be in touch!';
       btn.style.background = '#3a3a3d';
       btn.style.color = '#f4f2ee';
     });
